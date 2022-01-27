@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/v_auth_divider"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log-In as admin"
+            android:textSize="12sp"
+            android:textColor="?colorOnSecondary"/>
+
+        <EditText
+            android:id="@+id/et_auth_first_field"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/edittext_custom_selector"
+            android:drawableStart="@drawable/icon_user"
+            android:drawablePadding="10dp"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionDone"
+            android:hint="Email"
+            android:text="somi.it.personal@gmail.com"
+            android:textColorHint="?colorSecondaryVariant"
+            android:textColor="?colorOnSecondary"/>
+
+
+        <EditText
+            android:id="@+id/et_auth_second_field"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_custom_selector"
+            android:drawableStart="@drawable/icon_password"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:hint="Password"
+            android:text="Qpzmmzpq96"
+            android:textColorHint="?colorSecondaryVariant"
+            android:textColor="?colorOnSecondary"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_auth_divider"
+        android:layout_width="800dp"
+        android:layout_height="2dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="?colorPrimary" />
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/v_auth_divider"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginEnd="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log-In as User"
+            android:textSize="12sp"
+            android:textColor="?colorOnSecondary"/>
+
+        <EditText
+            android:id="@+id/et_auth_pin"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edittext_custom_selector"
+            android:layout_marginTop="6dp"
+            android:drawableStart="@drawable/icon_pin"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:hint="********"
+            android:textColorHint="?colorSecondaryVariant"
+            android:textColor="?colorOnSecondary"/>
+
+    </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/iv_auth_qr"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="2"
+            android:layout_marginStart="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/b_auth_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30sp"
+        android:src="@drawable/icon_next"
+        app:tint="?colorOnPrimary" />
+
+
+</RelativeLayout>

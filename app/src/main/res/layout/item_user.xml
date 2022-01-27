@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cv_item_user"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="?colorOnSecondary"
+    app:cardElevation="4sp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="10sp"
+    android:focusable="true"
+    android:clickable="true">
+
+    <LinearLayout
+        android:id="@+id/ll_item_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:scrollbars="none"
+        android:padding="6dp">
+
+        <TextView
+            android:id="@+id/tv_item_user_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:textColor="?colorOnPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?colorOnPrimary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_item_user_device_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?colorOnPrimary"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_item_user_pin_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?colorOnPrimary"
+                android:textSize="20sp"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
