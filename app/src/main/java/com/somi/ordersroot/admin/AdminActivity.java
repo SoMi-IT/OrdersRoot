@@ -10,14 +10,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManager;
 import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManagerListener;
 import com.somi.ordersroot.R;
-import com.somi.ordersroot.admin.data.User;
+import com.somi.ordersroot.admin.license.License;
+import com.somi.ordersroot.admin.user.User;
+import com.somi.ordersroot.admin.license.LicensesFragment;
+import com.somi.ordersroot.admin.user.UsersFragment;
 import com.somi.ordersroot.auth.AuthActivity;
-import com.somi.ordersroot.auth.AuthFragment;
 
 import java.util.ArrayList;
 
@@ -26,12 +26,12 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
 
     private PanelFragment panelFragment;
-    private AdminFragment adminFragment;
+    private UsersFragment usersFragment;
+    private LicensesFragment licensesFragment;
 
-    private FirebaseAuth mAuth;
     private FirestoreAdminManager firestoreAdminManager;
 
-    private AdminActivityListener listenerForPanel, listenerForMain;
+    private AdminActivityListener listenerForPanel, listenerForUser, listenerForLicenses;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +41,15 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
         toggleLoader(false);
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        firestoreAdminManager = new FirestoreAdminManager();
 
-        if(currentUser != null){
+        if(firestoreAdminManager.getMAuth().getCurrentUser() != null){
             showPanelFragment();
-            showAdminFragment();
+            showLicensesFragment();
 
-            firestoreAdminManager = new FirestoreAdminManager();
             firestoreAdminManager.setListener(this);
             firestoreAdminManager.fetchAdminData();
-            firestoreAdminManager.fetchUsersData();
+            firestoreAdminManager.fetchLicensesData();
 
         }else {
             Intent intent = new Intent(this, AuthActivity.class);
@@ -63,24 +61,55 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
     }//onCreate
 
-    public void setListenerForPanel(AdminActivityListener listener) {
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(firestoreAdminManager != null)firestoreAdminManager.setListener(null);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(firestoreAdminManager != null)firestoreAdminManager.setListener(null);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(firestoreAdminManager != null) {
+            firestoreAdminManager.setListener(this);
+            firestoreAdminManager.fetchAdminData();
+            firestoreAdminManager.fetchLicensesData();
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    public void setListenerForPanel(AdminActivityListener listener) {
         listenerForPanel = listener;
 
     }//setListenerForPanel
 
 
-    public void setListenerForMain(AdminActivityListener listener) {
+    public void setListenerForUser(AdminActivityListener listener) {
+        listenerForUser = listener;
 
-        listenerForMain = listener;
+    }//setListenerForUser
 
-    }//setListenerForMain
+    public void setListenerForLicenses(AdminActivityListener listener) {
+        listenerForLicenses = listener;
+
+    }//setListenerForLicenses
 
 
     public void showPanelFragment() {
 
         panelFragment = new PanelFragment();
-
         FragmentManager mainFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_admin_panel, panelFragment);
@@ -92,18 +121,29 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
     }//showPanelFragment
 
-    public void showAdminFragment() {
+    public void showUsersFragment() {
 
-        adminFragment = new AdminFragment();
-
+        usersFragment = new UsersFragment();
         FragmentManager mainFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_admin_main, adminFragment);
+        fragmentTransaction.replace(R.id.fl_admin_main, usersFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
 
 
-    }//showAdminFragment
+    }//showUsersFragment
+
+
+    public void showLicensesFragment() {
+
+        licensesFragment = new LicensesFragment();
+        FragmentManager mainFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fl_admin_main, licensesFragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.commit();
+
+    }//showLicensesFragment
 
 
     private void toggleLoader(boolean visible){
@@ -126,7 +166,7 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
     @Override
     public void onLogout() {
         toggleLoader(true);
-        mAuth.signOut();
+        firestoreAdminManager.getMAuth().signOut();
 
         Intent intent = new Intent(this, AuthActivity.class);
         this.startActivity(intent);
@@ -143,9 +183,14 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
 
     public void onUsersDataRetrieved(ArrayList<User> users) {
-        if(listenerForMain != null) listenerForMain.onUsersDataUpdated(users);
+        if(listenerForUser != null) listenerForUser.onUsersDataUpdated(users);
 
     }//onUsersDataRetrieved
+
+
+    public void onLicensesDataRetrieved(ArrayList<License> licenses) {
+        if(listenerForLicenses != null) listenerForLicenses.onLicensesDataUpdated(licenses);
+    }//onLicensesDataRetrieved
 
 
     public void onDataRetrieveError(String error) {

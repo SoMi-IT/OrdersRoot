@@ -1,39 +1,26 @@
-package com.somi.ordersroot.admin;
+package com.somi.ordersroot.admin.user;
 
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManager;
-import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManagerListener;
 import com.somi.ordersroot.R;
-import com.somi.ordersroot.admin.data.User;
-import com.somi.ordersroot.auth.AuthFragmentListener;
+import com.somi.ordersroot.admin.Admin;
+import com.somi.ordersroot.admin.AdminActivity;
+import com.somi.ordersroot.admin.AdminActivityListener;
+import com.somi.ordersroot.admin.license.License;
 
 import java.util.ArrayList;
 
 
-public class AdminFragment extends Fragment implements View.OnClickListener, AdminActivityListener {
+public class UsersFragment extends Fragment implements View.OnClickListener, AdminActivityListener {
 
 
     private RecyclerView rv_users;
@@ -50,11 +37,11 @@ public class AdminFragment extends Fragment implements View.OnClickListener, Adm
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_users.setLayoutManager(layoutManager);
 
-        usersAdapter = new UsersAdapter(getActivity());
+        usersAdapter = new UsersAdapter();
         rv_users.setAdapter(usersAdapter);
 
         AdminActivity activity = (AdminActivity) getActivity();
-        activity.setListenerForMain(this);
+        activity.setListenerForUser(this);
 
         return rootView;
 
@@ -66,17 +53,16 @@ public class AdminFragment extends Fragment implements View.OnClickListener, Adm
 
 
     public void onAdminDataUpdated(Admin admin) {}//onAdminDataUpdated
+    public void onLicensesDataUpdated(ArrayList<License> licenses) {}//onLicensesDataUpdated
 
 
     public void onUsersDataUpdated(ArrayList<User> users) {
-
-
 
         getActivity().runOnUiThread(() -> {
 
             if(usersAdapter == null) return;
 
-            usersAdapter.updateUsers(users);
+            usersAdapter.updateData(users);
 
 
         });

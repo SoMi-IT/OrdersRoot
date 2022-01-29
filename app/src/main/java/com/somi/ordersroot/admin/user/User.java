@@ -1,4 +1,4 @@
-package com.somi.ordersroot.admin.data;
+package com.somi.ordersroot.admin.user;
 
 public class User {
 

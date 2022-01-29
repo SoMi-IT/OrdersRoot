@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:backgroundTint="?colorPrimarySurface"
+    app:cardElevation="4sp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="10sp"
+    android:focusable="true"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:scrollbars="none"
+        android:padding="6dp">
+
+        <TextView
+            android:id="@+id/tv_item_license_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="22dp"
+            android:textColor="?colorOnSecondary"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="22dp"
+            android:background="?colorSecondary"/>
+
+        <ImageView
+            android:id="@+id/iv_item_license_edit"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="22dp"
+            android:src="@drawable/icon_edit"
+            app:tint="?colorOnSecondary" />
+
+
+
+        <ImageView
+            android:id="@+id/iv_item_license_show"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="22dp"
+            android:src="@drawable/icon_show"
+            app:tint="?colorOnSecondary" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="22dp"
+            android:background="?colorSecondary"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="22dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?colorSecondaryVariant"
+                android:textSize="12sp"
+                android:text="License id:"/>
+
+            <TextView
+                android:id="@+id/tv_item_license_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?colorOnSecondary"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="?colorSecondaryVariant"
+                android:textSize="12sp"
+                android:text="Device id:"/>
+
+            <TextView
+                android:id="@+id/tv_item_license_device_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?colorOnSecondary"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

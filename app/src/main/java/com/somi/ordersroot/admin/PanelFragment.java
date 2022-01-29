@@ -1,35 +1,19 @@
 package com.somi.ordersroot.admin;
 
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManager;
-import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManagerListener;
 import com.somi.ordersroot.R;
-import com.somi.ordersroot.admin.data.User;
-import com.somi.ordersroot.auth.AuthFragmentListener;
+import com.somi.ordersroot.admin.license.License;
+import com.somi.ordersroot.admin.user.User;
 
 import java.util.ArrayList;
 
@@ -107,6 +91,7 @@ public class PanelFragment extends Fragment implements View.OnClickListener,  Ad
 
 
     public void onUsersDataUpdated(ArrayList<User> users) { }//onUsersDataUpdated
+    public void onLicensesDataUpdated(ArrayList<License> licenses) {}//onLicensesDataUpdated
 
 
 }//AuthFragment

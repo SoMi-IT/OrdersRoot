@@ -1,7 +1,7 @@
-package com.somi.ordersroot.admin;
+package com.somi.ordersroot.admin.user;
 
 
-import com.somi.ordersroot.admin.data.User;
+import com.somi.ordersroot.admin.user.User;
 
 public interface UsersAdapterListener {
 

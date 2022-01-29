@@ -2,7 +2,7 @@ package com.somi.ordersroot.admin;
 
 import android.graphics.Bitmap;
 
-import com.somi.ordersroot.admin.data.User;
+import com.somi.ordersroot.admin.user.User;
 
 import java.util.ArrayList;
 

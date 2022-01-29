@@ -1,42 +1,36 @@
 package com.somi.ordersroot.FirestoreDataManager;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.somi.ordersroot.R;
 import com.somi.ordersroot.admin.Admin;
-import com.somi.ordersroot.admin.data.User;
+import com.somi.ordersroot.admin.license.License;
 
 import java.util.ArrayList;
 
 public class FirestoreAdminManager {
 
 
+    private FirebaseAuth mAuth;
     private FirestoreAdminManagerListener listener;
 
 
 
+    public FirestoreAdminManager() {
+        mAuth = FirebaseAuth.getInstance();
+
+    }
+
+    public FirebaseAuth getMAuth() {
+
+        return mAuth;
+
+    }//getMAuth
+
     public void fetchAdminData() {
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null)return;
 
@@ -57,9 +51,15 @@ public class FirestoreAdminManager {
                 Admin admin = new Admin();
                 admin.setId(currentUser.getUid());
                 admin.setEmail(currentUser.getEmail());
-                admin.setTitle(value.getString("title"));
-                admin.setCity(value.getString("city"));
-                admin.setAddress(value.getString("address"));
+
+                if(value.getString("title") == null) admin.setTitle("");
+                else admin.setTitle(value.getString("title"));
+
+                if(value.getString("city") == null) admin.setCity("");
+                else  admin.setCity(value.getString("city"));
+
+                if(value.getString("address") == null) admin.setAddress("");
+                else admin.setAddress(value.getString("address"));
 
                 if(listener != null)listener.onAdminDataRetrieved(admin);
 
@@ -70,11 +70,14 @@ public class FirestoreAdminManager {
 
         });
 
+
     }
 
-    public void fetchUsersData() {
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+
+    public void fetchLicensesData() {
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null)return;
 
@@ -86,7 +89,59 @@ public class FirestoreAdminManager {
         documentReference.addSnapshotListener((value, error) -> {
 
 
-            CollectionReference collectionReference = documentReference.collection("users");
+            CollectionReference collectionReference = documentReference.collection("licenses");
+            collectionReference.addSnapshotListener((value1, error1) -> {
+
+                if (error1 != null) {
+                    if(listener != null)listener.onDataRetrieveError(error1.getMessage());
+                    return;
+                }
+
+                if (value1 != null && !value1.isEmpty()) {
+
+                    ArrayList<License> licenses = new ArrayList<>();
+
+                    for (int i=0; i<value1.getDocuments().size(); i++){
+
+                        License license = new License(value1.getDocuments().get(i).getId());
+
+                        if(value1.getDocuments().get(i).getString("deviceId") == null) license.setDeviceId("");
+                        else license.setDeviceId(value1.getDocuments().get(i).getString("deviceId"));
+
+                        licenses.add(license);
+
+                    }
+
+                    if(listener != null)listener.onLicensesDataRetrieved(licenses);
+
+                } else {
+                    if(listener != null)listener.onDataRetrieveError("No users Data!");
+
+                }
+
+            });
+
+        });
+
+
+
+    }
+/*
+
+    public void fetchLicensesData() {
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null)return;
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference  = firebaseFirestore.collection("admins").document(currentUser.getUid());
+
+
+        documentReference.addSnapshotListener((value, error) -> {
+
+
+            CollectionReference collectionReference = documentReference.collection("licenses");
             collectionReference.addSnapshotListener((value1, error1) -> {
 
                 if (error1 != null) {
@@ -117,7 +172,7 @@ public class FirestoreAdminManager {
 
 
 
-    }
+    }*/
 
     public void setListener(FirestoreAdminManagerListener firestoreAdminManagerListener) {
         listener = firestoreAdminManagerListener;

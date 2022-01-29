@@ -1,7 +1,6 @@
-package com.somi.ordersroot.admin;
+package com.somi.ordersroot.admin.user;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.somi.ordersroot.R;
-import com.somi.ordersroot.admin.data.User;
 
 import java.util.ArrayList;
 
@@ -20,98 +18,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
 
 
     private ArrayList<User> users;
-    private final Context context;
+    private ArrayList<User> newTempUsers;
     private UsersAdapterListener listener;
 
 
-    public UsersAdapter(Context _context) {
-
-        context = _context;
+    public UsersAdapter() {
         if(users == null) users = new ArrayList<>();
 
     }//constructor
-
-
-    public void addUser(User user) {
-
-        users.add(user);
-        notifyItemInserted(users.size() - 1);
-
-    }//addUser
-
-    public void updateUser(User user) {
-
-        for (int i = 0; i < users.size(); i++) {
-
-            if (users.get(i).getUserId().equals(user.getUserId())) {
-                users.set(i, user);
-                notifyItemChanged(i);
-                break;
-
-            }
-
-        }
-
-    }//updateUser
-
-
-    public boolean userExist(User user) {
-
-        for (int i = 0; i < users.size(); i++) {
-
-            if (users.get(i).getUserId().equals(user.getUserId())) return true;
-
-        }
-
-        return false;
-
-    }//addUser
-
-
-    public void updateUsers(ArrayList<User> _users) {
-
-        if(users == null) users = new ArrayList<>();
-
-        if(users.size() == 0) {
-
-            for (int i = 0; i < _users.size(); i++) {
-                if(!userExist(_users.get(i))) addUser(_users.get(i));
-            }
-
-
-        }else {
-
-            for (int i = 0; i < _users.size(); i++) {
-                if(!userExist(_users.get(i))) addUser(_users.get(i));
-            }
-
-        }
-
-    }//updateUsers
-
-
-    public void deleteUser(User user) {
-
-        for (int i = 0; i < users.size(); i++) {
-
-            if (users.get(i).getUserId().equals(user.getUserId())) {
-                users.remove(i);
-                notifyItemRemoved(i);
-                break;
-
-            }
-
-        }
-
-    }//deleteUser
-
-
-
-    public ArrayList<User> getUsers() {
-
-        return users;
-
-    }//updateAllprocesss
 
 
     public void setListener(UsersAdapterListener _userAdapterListener) {
@@ -119,6 +33,106 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
         listener = _userAdapterListener;
 
     }//setListener
+
+
+    public void updateData(ArrayList<User> _users) {
+
+        newTempUsers = _users;
+
+        if(users == null || users.size() == 0) {
+            users = newTempUsers;
+            notifyDataSetChanged();
+
+        }else {
+            checkAndUpdateOrDeleteData();
+            for (int i = 0; i < newTempUsers.size(); i++) {
+
+                users.add(newTempUsers.get(i));
+                notifyItemInserted(users.size() - 1);
+                notifyItemRangeChanged(i, users.size());
+
+            }
+
+        }
+
+    }//updateData
+
+
+    private User findDataInNewData(User user) {
+
+        for (int i = 0; i < newTempUsers.size(); i++) {
+
+            if (newTempUsers.get(i).getUserId().equals(user.getUserId())) {
+
+                User userFounded = newTempUsers.get(i);
+                newTempUsers.remove(i);
+                return userFounded;
+
+            }
+
+        }
+
+        return null;
+
+    }//findDataInNewData
+
+
+    private void checkAndUpdateOrDeleteData() {
+
+        for (int i = 0; i < users.size(); i++) {
+            User tempLicense = findDataInNewData(users.get(i));
+
+            if(tempLicense != null){
+
+                if(!users.get(i).getDeviceId().equals(tempLicense.getDeviceId()) || !users.get(i).getPinCode().equals(tempLicense.getPinCode())) {
+                    users.set(i, tempLicense);
+                    notifyItemChanged(i);
+                }
+
+            }else {
+                users.remove(i);
+                notifyItemRemoved(i);
+                notifyItemRangeChanged(i, users.size());
+            }
+
+        }
+
+    }//checkAndUpdateOrDeleteData
+
+
+    public ArrayList<User> getData() {
+        return users;
+
+    }//getData
+
+
+    public User getDataById(String objectId) {
+        if (users == null) return null;
+        for (User data: users) {
+            if (data.getUserId().equals(objectId)) return data;
+        }
+
+        return null;
+
+    }//getDataById
+
+    public int getItemCount() {
+        if (users != null) {
+            return users.size();
+        }else return 0;
+
+    }//getItemCount
+
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
     @NonNull
     public UsersAdapterItemView onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -184,23 +198,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
     }//SheetsListAdapterItemView
 
 
-    public int getItemCount() {
-        if (users != null) {
-            return users.size();
-        }else return 0;
 
-    }//getItemCount
-
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
 
 }//sheetsListAdapter

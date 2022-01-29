@@ -12,6 +12,7 @@
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/gradient.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/icon_devices.xml" value="0.5703125" />
+        <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/icon_edit.xml" value="0.526" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/icon_password.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/icon_pin.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/icon_user.xml" value="0.5703125" />
@@ -23,9 +24,11 @@
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/activity_auth.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/activity_splash.xml" value="0.5541666666666667" />
+        <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/fragment_admin_licenses.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/fragment_admin_main.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/fragment_admin_panel.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/fragment_auth.xml" value="0.5" />
+        <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/item_license.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/item_user.xml" value="0.5541666666666667" />
       </map>
     </option>
