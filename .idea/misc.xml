@@ -7,6 +7,7 @@
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable-v24/main_gradient.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable-v24/splash_background.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/background_gradient.xml" value="0.5703125" />
+        <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/dialog_backgroud.xml" value="0.526" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/edittext_custom_enabled.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/edittext_custom_focused.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/gradient.xml" value="0.5703125" />
@@ -20,10 +21,13 @@
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/splash_background.xml" value="0.5703125" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/splash_gradient.xml" value="0.3458333333333333" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/drawable/splash_shape.xml" value="0.346875" />
+        <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout-port/activity_admin.xml" value="0.5541666666666667" />
+        <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout-port/fragment_admin_panel.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/activity_admin.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/activity_auth.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/activity_splash.xml" value="0.5541666666666667" />
+        <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/dialog_license_edit.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/fragment_admin_licenses.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/fragment_admin_main.xml" value="0.5541666666666667" />
         <entry key="..\:/AdroidStudioProjects/OrdersRoot/app/src/main/res/layout/fragment_admin_panel.xml" value="0.5541666666666667" />

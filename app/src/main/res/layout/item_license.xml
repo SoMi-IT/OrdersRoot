@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?colorSecondaryVariant"
+                android:textColor="?colorOnSecondaryContainer"
                 android:textSize="12sp"
                 android:text="License id:"/>
 
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textColor="?colorSecondaryVariant"
+                android:textColor="?colorOnSecondaryContainer"
                 android:textSize="12sp"
                 android:text="Device id:"/>
 

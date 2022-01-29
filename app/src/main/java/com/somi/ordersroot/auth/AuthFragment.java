@@ -23,6 +23,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.somi.ordersroot.R;
 
 
@@ -99,10 +100,17 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
     }//initAuth
 
 
-    private Bitmap generateQrCode(String s){
+    private Bitmap generateQrCode(String data){
 
         QRCodeWriter writer = new QRCodeWriter();
-
+        try {
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.encodeBitmap(data, BarcodeFormat.QR_CODE, 400, 400);
+            return bitmap;
+        } catch(Exception e) {
+            return null;
+        }
+        /*
         try {
             BitMatrix bitMatrix = writer.encode(s, BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
@@ -111,10 +119,10 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     final TypedValue value1 = new TypedValue ();
-                    getActivity().getTheme ().resolveAttribute (R.attr.colorOnPrimary, value1, true);
+                    getActivity().getTheme ().resolveAttribute (Color.BLACK, value1, true);
 
                     final TypedValue value2 = new TypedValue ();
-                    getActivity().getTheme ().resolveAttribute (R.attr.colorOnSecondary, value2, true);
+                    getActivity().getTheme ().resolveAttribute (Color.WHITE, value2, true);
 
                     bmp.setPixel(x, y, bitMatrix.get(x, y) ? value2.data: value1.data);
                 }
@@ -125,7 +133,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
             e.printStackTrace();
             return null;
 
-        }
+        }*/
 
     }//generateQrCode
 

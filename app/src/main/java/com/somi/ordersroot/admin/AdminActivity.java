@@ -1,5 +1,6 @@
 package com.somi.ordersroot.admin;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,10 +11,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManager;
 import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManagerListener;
 import com.somi.ordersroot.R;
 import com.somi.ordersroot.admin.license.License;
+import com.somi.ordersroot.admin.license.LicenseEditDialogListener;
 import com.somi.ordersroot.admin.user.User;
 import com.somi.ordersroot.admin.license.LicensesFragment;
 import com.somi.ordersroot.admin.user.UsersFragment;
@@ -194,10 +198,17 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
 
     public void onDataRetrieveError(String error) {
-
         Toast.makeText(this, error, Toast.LENGTH_LONG).show();
 
     }//onDataRetrieveError
+
+
+
+
+
+
+
+
 
 
 }//AdminActivity

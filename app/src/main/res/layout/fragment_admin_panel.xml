@@ -7,136 +7,152 @@
     android:background="?colorPrimarySurface"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_admin_panel_admin_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="100sp"
-            android:src="@mipmap/ic_launcher"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"/>
-
-        <TextView
-            android:id="@+id/tv_admin_panel_admin_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:textSize="30sp"
-            android:textColor="?colorOnSecondary"
-            android:textStyle="bold"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-    <TextView
-        android:id="@+id/tv_admin_panel_admin_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="12sp"
-        android:textColor="?colorPrimary"
-        android:textStyle="bold"/>
+                <ImageView
+                    android:id="@+id/iv_admin_panel_admin_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100sp"
+                    android:src="@mipmap/ic_launcher"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"/>
 
-    <TextView
-        android:id="@+id/tv_admin_panel_admin_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        android:textColor="?colorOnSecondary"/>
+                <TextView
+                    android:id="@+id/tv_admin_panel_admin_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textSize="30sp"
+                    android:textColor="?colorOnSecondary"
+                    android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/tv_admin_panel_admin_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        android:textColor="?colorOnSecondary"/>
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_admin_panel_admin_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        android:textColor="?colorOnSecondary"/>
+            <TextView
+                android:id="@+id/tv_admin_panel_admin_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="12sp"
+                android:textColor="?colorPrimary"
+                android:textStyle="bold"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="40dp"
-        android:background="?colorOnPrimary" />
+            <TextView
+                android:id="@+id/tv_admin_panel_admin_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="?colorOnSecondary"/>
 
-    <Button
-        android:id="@+id/b_admin_panel_first_option"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="?colorOnPrimary"
-        android:text="Manage Devices"
-        android:textColor="?colorOnSecondary"
-        android:textAlignment="viewStart"
-        android:drawableLeft="@drawable/icon_devices"
-        android:drawableTint="?colorOnSecondary"
-        android:elevation="12dp"/>
+            <TextView
+                android:id="@+id/tv_admin_panel_admin_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="?colorOnSecondary"/>
 
-    <Button
-        android:id="@+id/b_admin_panel_second_option"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:backgroundTint="?colorOnPrimary"
-        android:text="Manage Restaurant"
-        android:textColor="?colorOnSecondary"
-        android:textAlignment="viewStart"
-        android:drawableLeft="@drawable/icon_devices"
-        android:drawableTint="?colorOnSecondary"
-        android:elevation="12dp"/>
+            <TextView
+                android:id="@+id/tv_admin_panel_admin_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="?colorOnSecondary"/>
 
-    <Button
-        android:id="@+id/b_admin_panel_third_option"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:backgroundTint="?colorOnPrimary"
-        android:text="Tables Status"
-        android:textColor="?colorOnSecondary"
-        android:textAlignment="viewStart"
-        android:drawableLeft="@drawable/icon_devices"
-        android:drawableTint="?colorOnSecondary"
-        android:elevation="12dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="40dp"
+                android:background="?colorOnPrimary" />
 
-    <Button
-        android:id="@+id/b_admin_panel_forth_option"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:backgroundTint="?colorOnPrimary"
-        android:text="Orders Status"
-        android:textColor="?colorOnSecondary"
-        android:textAlignment="viewStart"
-        android:drawableLeft="@drawable/icon_devices"
-        android:drawableTint="?colorOnSecondary"
-        android:elevation="12dp"/>
+            <Button
+                android:id="@+id/b_admin_panel_first_option"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="Manage Devices"
+                android:textColor="?colorOnSecondary"
+                android:textAlignment="viewStart"
+                android:drawableLeft="@drawable/icon_devices"
+                android:drawableTint="?colorOnSecondary"
+                android:elevation="12dp"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="40dp"
-        android:background="?colorOnPrimary" />
+            <Button
+                android:id="@+id/b_admin_panel_second_option"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="Manage Restaurant"
+                android:textColor="?colorOnSecondary"
+                android:textAlignment="viewStart"
+                android:drawableLeft="@drawable/icon_devices"
+                android:drawableTint="?colorOnSecondary"
+                android:elevation="12dp"/>
 
-    <Button
-        android:id="@+id/b_admin_panel_logout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="?colorOnPrimary"
-        android:text="LogOut"
-        android:textColor="?colorOnSecondary"
-        android:textAlignment="viewStart"
-        android:drawableLeft="@drawable/icon_logout"
-        android:drawableTint="?colorOnSecondary"
-        android:elevation="12dp"/>
+            <Button
+                android:id="@+id/b_admin_panel_third_option"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="Tables Status"
+                android:textColor="?colorOnSecondary"
+                android:textAlignment="viewStart"
+                android:drawableLeft="@drawable/icon_devices"
+                android:drawableTint="?colorOnSecondary"
+                android:elevation="12dp"/>
+
+            <Button
+                android:id="@+id/b_admin_panel_forth_option"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="Orders Status"
+                android:textColor="?colorOnSecondary"
+                android:textAlignment="viewStart"
+                android:drawableLeft="@drawable/icon_devices"
+                android:drawableTint="?colorOnSecondary"
+                android:elevation="12dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="40dp"
+                android:background="?colorOnPrimary" />
+
+            <Button
+                android:id="@+id/b_admin_panel_logout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="LogOut"
+                android:textColor="?colorOnSecondary"
+                android:textAlignment="viewStart"
+                android:drawableLeft="@drawable/icon_logout"
+                android:drawableTint="?colorOnSecondary"
+                android:elevation="12dp"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 
 </LinearLayout>
