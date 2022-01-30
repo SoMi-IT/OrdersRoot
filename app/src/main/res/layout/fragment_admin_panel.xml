@@ -81,15 +81,27 @@
                 android:background="?colorOnSecondaryContainer" />
 
             <Button
-                android:id="@+id/b_admin_panel_first_option"
+                android:id="@+id/b_admin_panel_licenses"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="?colorOnPrimary"
-                android:text="Manage Devices"
+                android:text="Manage Licenses"
                 android:textColor="?colorOnSecondary"
                 android:textAlignment="viewStart"
                 android:drawableLeft="@drawable/icon_devices"
+                android:drawableTint="?colorOnSecondary"
+                android:elevation="12dp"/>
+
+            <Button
+                android:id="@+id/b_admin_panel_users"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="?colorOnPrimary"
+                android:text="Manage Users"
+                android:textColor="?colorOnSecondary"
+                android:textAlignment="viewStart"
+                android:drawableLeft="@drawable/icon_users"
                 android:drawableTint="?colorOnSecondary"
                 android:elevation="12dp"/>
 

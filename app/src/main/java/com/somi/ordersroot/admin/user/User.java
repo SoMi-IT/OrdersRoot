@@ -2,14 +2,10 @@ package com.somi.ordersroot.admin.user;
 
 public class User {
 
-    public User(String userId, String deviceId, String pinCode) {
-        this.userId = userId;
-        this.deviceId = deviceId;
-        this.pinCode = pinCode;
-    }
+    public User(String userId) { this.userId = userId; }
 
     private String userId;
-    private String deviceId;
+    private String userName;
     private String pinCode;
 
     public String getUserId() {
@@ -19,12 +15,10 @@ public class User {
         this.userId = userId;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getUserName() {
+        return userName;
     }
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
+    public void setUserName(String userName) { this.userName = userName; }
 
     public String getPinCode() {
         return pinCode;
@@ -32,7 +26,6 @@ public class User {
     public void setPinCode(String pinCode) {
         this.pinCode = pinCode;
     }
-
 
 
 }

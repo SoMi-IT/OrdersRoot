@@ -4,6 +4,7 @@ package com.somi.ordersroot.admin.user;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.somi.ordersroot.R;
 
 import java.util.ArrayList;
+
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapterItemView> {
 
@@ -29,13 +31,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
 
 
     public void setListener(UsersAdapterListener _userAdapterListener) {
-
         listener = _userAdapterListener;
 
     }//setListener
 
 
-    public void updateData(ArrayList<User> _users) {
+    public void updateAllData(ArrayList<User> _users) {
 
         newTempUsers = _users;
 
@@ -44,7 +45,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
             notifyDataSetChanged();
 
         }else {
+
             checkAndUpdateOrDeleteData();
+
             for (int i = 0; i < newTempUsers.size(); i++) {
 
                 users.add(newTempUsers.get(i));
@@ -80,12 +83,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
     private void checkAndUpdateOrDeleteData() {
 
         for (int i = 0; i < users.size(); i++) {
-            User tempLicense = findDataInNewData(users.get(i));
+            User tempUser = findDataInNewData(users.get(i));
 
-            if(tempLicense != null){
+            if(tempUser != null){
+                if(!users.get(i).getPinCode().equals(tempUser.getPinCode()) || !users.get(i).getUserName().equals(tempUser.getUserName())) {
 
-                if(!users.get(i).getDeviceId().equals(tempLicense.getDeviceId()) || !users.get(i).getPinCode().equals(tempLicense.getPinCode())) {
-                    users.set(i, tempLicense);
+                    users.set(i, tempUser);
                     notifyItemChanged(i);
                 }
 
@@ -116,6 +119,25 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
 
     }//getDataById
 
+
+    public void refreshView(String objectId) {
+
+        if (users == null) return;
+
+        for (int i = 0; i < users.size(); i++) {
+
+            if (users.get(i).getUserId().equals(objectId)) {
+
+                notifyItemChanged(i);
+                break;
+
+            }
+
+        }
+
+    }//refreshView
+
+
     public int getItemCount() {
         if (users != null) {
             return users.size();
@@ -123,6 +145,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
 
     }//getItemCount
 
+
+
+    public User getUserById(String objectId) {
+        if (users == null) return null;
+        for (User process: users) {
+            if (process.getUserId().equals(objectId)) return process;
+        }
+
+        return null;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -146,59 +178,48 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersAdapter
 
     public void onBindViewHolder(UsersAdapterItemView holder, int position) {
 
-        if (users != null) {
-            holder.itemView.setTag(users.get(position));
+        holder.itemView.setTag(users.get(position));
 
-            User user = users.get(position);
+        User user = users.get(position);
 
-            holder.tv_position.setText(position+"");
-            holder.tv_id.setText(user.getUserId());
-            holder.tv_pinCode.setText(user.getPinCode());
-            holder.tv_deviceID.setText(user.getDeviceId());
+        holder.tv_position.setText(position+"");
+        holder.tv_pinCode.setText("*****");
+        holder.tv_name.setText(user.getUserName());
+        holder.tv_id.setText(user.getUserId());
 
-            holder.cv_card.setOnClickListener(v -> {
-                if (listener != null) listener.onItemClicked(user);
-            });
+        holder.iv_show.setOnClickListener(v -> {
+            if(holder.tv_pinCode.getText().equals("*****"))holder.tv_pinCode.setText(user.getPinCode());
+            else holder.tv_pinCode.setText("*****");
+        });
 
-
-
-        }
+        holder.iv_edit.setOnClickListener(v -> {
+            if (listener != null) listener.onItemClicked(user);
+        });
 
 
     }//onBindViewHolder
 
-    public User getUserById(String objectId) {
-        if (users == null) return null;
-        for (User process: users) {
-            if (process.getUserId().equals(objectId)) return process;
-        }
-
-        return null;
-    }
-
 
     public static class UsersAdapterItemView extends RecyclerView.ViewHolder {
 
-        CardView cv_card;
         TextView tv_position;
         TextView tv_id;
+        TextView tv_name;
         TextView tv_pinCode;
-        TextView tv_deviceID;
+        ImageView iv_show, iv_edit;
 
         UsersAdapterItemView(View itemView) {
 
             super(itemView);
-            cv_card = itemView.findViewById(R.id.cv_item_user);
             tv_position = itemView.findViewById(R.id.tv_item_user_position);
             tv_id = itemView.findViewById(R.id.tv_item_user_id);
-            tv_pinCode = itemView.findViewById(R.id.tv_item_user_device_id);
-            tv_deviceID = itemView.findViewById(R.id.tv_item_user_pin_code);
+            tv_name = itemView.findViewById(R.id.tv_item_user_name);
+            tv_pinCode = itemView.findViewById(R.id.tv_item_user_pin_code);
+            iv_show = itemView.findViewById(R.id.iv_item_user_show);
+            iv_edit = itemView.findViewById(R.id.iv_item_user_edit);
         }
 
     }//SheetsListAdapterItemView
-
-
-
 
 
 }//sheetsListAdapter

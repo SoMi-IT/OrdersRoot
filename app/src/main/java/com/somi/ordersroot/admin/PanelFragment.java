@@ -18,14 +18,14 @@ import com.somi.ordersroot.admin.user.User;
 import java.util.ArrayList;
 
 
-public class PanelFragment extends Fragment implements View.OnClickListener,  AdminActivityListener {
+public class PanelFragment extends Fragment implements View.OnClickListener {
 
 
     private PanelFragmentListener panelFragmentListener;
 
     private ImageView iv_logo;
     private TextView tv_title, tv_id, tv_mail, tv_city, tv_address;
-    private Button b_manageDevices, b_manageRestaurant, b_ordersStatus, b_tableStatus, b_logout;
+    private Button b_manageLicenses, b_manageUsers, b_manageRestaurant, b_ordersStatus, b_tableStatus, b_logout;
 
 
 
@@ -40,8 +40,10 @@ public class PanelFragment extends Fragment implements View.OnClickListener,  Ad
         tv_city = rootView.findViewById(R.id.tv_admin_panel_admin_city);
         tv_address = rootView.findViewById(R.id.tv_admin_panel_admin_address);
 
-        b_manageDevices = rootView.findViewById(R.id.b_admin_panel_first_option);
-        b_manageDevices.setOnClickListener(this);
+        b_manageLicenses = rootView.findViewById(R.id.b_admin_panel_licenses);
+        b_manageLicenses.setOnClickListener(this);
+        b_manageUsers = rootView.findViewById(R.id.b_admin_panel_users);
+        b_manageUsers.setOnClickListener(this);
         b_manageRestaurant = rootView.findViewById(R.id.b_admin_panel_second_option);
         b_manageRestaurant.setOnClickListener(this);
         b_ordersStatus = rootView.findViewById(R.id.b_admin_panel_third_option);
@@ -50,9 +52,6 @@ public class PanelFragment extends Fragment implements View.OnClickListener,  Ad
         b_tableStatus.setOnClickListener(this);
         b_logout = rootView.findViewById(R.id.b_admin_panel_logout);
         b_logout.setOnClickListener(this);
-
-        AdminActivity activity = (AdminActivity) getActivity();
-        activity.setListenerForPanel(this);
 
         return rootView;
 
@@ -68,14 +67,22 @@ public class PanelFragment extends Fragment implements View.OnClickListener,  Ad
 
     public void onClick(View view) {
 
-        if (panelFragmentListener != null && view == b_logout) {
+        if(panelFragmentListener == null) return;
+
+        if (view == b_logout) {
             panelFragmentListener.onLogout();
+
+        }else if (view == b_manageLicenses) {
+            panelFragmentListener.onManageLicenses();
+
+        }else if (view == b_manageUsers) {
+            panelFragmentListener.onManageUsers();
         }
 
     }//onClick
 
 
-    public void onAdminDataUpdated(Admin admin) {
+    public void adminDataUpdated(Admin admin) {
 
         getActivity().runOnUiThread(() -> {
 

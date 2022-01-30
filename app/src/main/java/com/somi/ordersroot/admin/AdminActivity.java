@@ -21,14 +21,18 @@ import com.somi.ordersroot.admin.license.LicenseEditDialogListener;
 import com.somi.ordersroot.admin.license.LicensesFragmentListener;
 import com.somi.ordersroot.admin.user.User;
 import com.somi.ordersroot.admin.license.LicensesFragment;
+import com.somi.ordersroot.admin.user.UserEditDialogListener;
 import com.somi.ordersroot.admin.user.UsersFragment;
 import com.somi.ordersroot.auth.AuthActivity;
 
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity implements PanelFragmentListener, FirestoreAdminManagerListener, LicensesFragmentListener {
+public class AdminActivity extends AppCompatActivity implements PanelFragmentListener, FirestoreAdminManagerListener, LicensesFragmentListener, UserEditDialogListener {
 
 
+
+    private static final int STATE_LICENSES = 0;
+    private static final int STATE_USERS = 1;
 
     private PanelFragment panelFragment;
     private UsersFragment usersFragment;
@@ -36,8 +40,7 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
     private FirestoreAdminManager firestoreAdminManager;
 
-    private AdminActivityListener listenerForPanel, listenerForUser, listenerForLicenses;
-
+    private int currentState;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,11 +53,8 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
         if(firestoreAdminManager.getMAuth().getCurrentUser() != null){
             showPanelFragment();
-            showLicensesFragment();
-
-            firestoreAdminManager.setListener(this);
-            firestoreAdminManager.fetchAdminData();
-            firestoreAdminManager.fetchLicensesData();
+            currentState = STATE_LICENSES;
+            showMainFragment();
 
         }else {
             Intent intent = new Intent(this, AuthActivity.class);
@@ -85,7 +85,15 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
         if(firestoreAdminManager != null) {
             firestoreAdminManager.setListener(this);
             firestoreAdminManager.fetchAdminData();
-            firestoreAdminManager.fetchLicensesData();
+
+            if(currentState == STATE_LICENSES) {
+                firestoreAdminManager.fetchLicensesData();
+
+            }else if(currentState == STATE_USERS) {
+                firestoreAdminManager.fetchUsersData();
+
+            }
+
         }
 
     }
@@ -94,22 +102,6 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
     public void onBackPressed() {
 
     }
-
-    public void setListenerForPanel(AdminActivityListener listener) {
-        listenerForPanel = listener;
-
-    }//setListenerForPanel
-
-
-    public void setListenerForUser(AdminActivityListener listener) {
-        listenerForUser = listener;
-
-    }//setListenerForUser
-
-    public void setListenerForLicenses(AdminActivityListener listener) {
-        listenerForLicenses = listener;
-
-    }//setListenerForLicenses
 
 
     public void showPanelFragment() {
@@ -126,26 +118,26 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
     }//showPanelFragment
 
-    public void showUsersFragment() {
 
-        usersFragment = new UsersFragment();
+    public void showMainFragment() {
+
         FragmentManager mainFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_admin_main, usersFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.commit();
 
+        if(currentState == STATE_LICENSES) {
+            licensesFragment = new LicensesFragment();
+            licensesFragment.setListener(this);
+            fragmentTransaction.replace(R.id.fl_admin_main, licensesFragment);
+            firestoreAdminManager.fetchLicensesData();
 
-    }//showUsersFragment
+        }else if(currentState == STATE_USERS) {
+            usersFragment = new UsersFragment();
+            usersFragment.setListener(this);
+            fragmentTransaction.replace(R.id.fl_admin_main, usersFragment);
+            firestoreAdminManager.fetchUsersData();
 
+        }
 
-    public void showLicensesFragment() {
-
-        licensesFragment = new LicensesFragment();
-        licensesFragment.setListener(this);
-        FragmentManager mainFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fl_admin_main, licensesFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
 
@@ -169,7 +161,6 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
     }//toggleLoader
 
 
-    @Override
     public void onLogout() {
         toggleLoader(true);
         firestoreAdminManager.getMAuth().signOut();
@@ -178,25 +169,38 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
         this.startActivity(intent);
         this.finish();
 
+    }//onLogout
 
-    }
+
+    public void onManageLicenses() {
+        currentState = STATE_LICENSES;
+        showMainFragment();
+
+    }//onManageLicenses
+
+
+    public void onManageUsers() {
+        currentState = STATE_USERS;
+        showMainFragment();
+
+    }//onManageUsers
 
 
     //-------------------FireStoreAdminListener
     public void onAdminDataRetrieved(Admin admin) {
-        if(listenerForPanel != null)listenerForPanel.onAdminDataUpdated(admin);
+        if(panelFragment != null)panelFragment.adminDataUpdated(admin);
 
     }//onAdminDataRetrieved
 
 
     public void onUsersDataRetrieved(ArrayList<User> users) {
-        if(listenerForUser != null) listenerForUser.onUsersDataUpdated(users);
+        if(usersFragment != null && currentState == STATE_USERS) usersFragment.usersDataUpdated(users);
 
     }//onUsersDataRetrieved
 
 
     public void onLicensesDataRetrieved(ArrayList<License> licenses) {
-        if(listenerForLicenses != null) listenerForLicenses.onLicensesDataUpdated(licenses);
+        if(licensesFragment != null && currentState == STATE_LICENSES) licensesFragment.licensesDataUpdated(licenses);
     }//onLicensesDataRetrieved
 
 
@@ -211,5 +215,10 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
     @Override
     public void onLicenseDataChanged(License license) {
         firestoreAdminManager.updateLicenseData(license);
+    }
+
+    @Override
+    public void onUserEdited(User user) {
+
     }
 }//AdminActivity

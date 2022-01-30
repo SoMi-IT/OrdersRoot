@@ -1,7 +1,6 @@
 package com.somi.ordersroot.admin.license;
 
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
         if(licenses == null) licenses = new ArrayList<>();
 
     }//constructor
+
 
     public void setListener(LicensesAdapterListener _listener) {
         listener = _listener;
@@ -132,7 +132,7 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
 
         }
 
-    }//getDataById
+    }//refreshView
 
 
     public int getItemCount() {
@@ -211,4 +211,4 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
     }//UsersAdapterItemView
 
 
-}//UsersAdapter
+}//LicensesAdapter

@@ -2,6 +2,7 @@ package com.somi.ordersroot.admin.license;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +25,13 @@ import com.somi.ordersroot.admin.user.User;
 import java.util.ArrayList;
 
 
-public class LicensesFragment extends Fragment implements AdminActivityListener, LicensesAdapterListener, LicenseEditDialogListener {
+public class LicensesFragment extends Fragment implements LicensesAdapterListener, LicenseEditDialogListener {
 
 
     private RecyclerView rv_licenses;
     private LicensesAdapter licensesAdapter;
 
     private LicensesFragmentListener listener;
-    private FirestoreAdminManager firestoreAdminManager;
     private LicenseEditDialog licenseEditDialog;
 
 
@@ -47,9 +47,6 @@ public class LicensesFragment extends Fragment implements AdminActivityListener,
         licensesAdapter.setListener(this);
         rv_licenses.setAdapter(licensesAdapter);
 
-        AdminActivity activity = (AdminActivity) getActivity();
-        activity.setListenerForLicenses(this);
-
         return rootView;
 
     }//onCreateView
@@ -59,10 +56,8 @@ public class LicensesFragment extends Fragment implements AdminActivityListener,
         listener = licensesFragmentListener;
     }//setListener
 
-    public void onAdminDataUpdated(Admin admin) {}//onAdminDataUpdated
-    public void onUsersDataUpdated(ArrayList<User> users) {}//onUsersDataUpdated
 
-    public void onLicensesDataUpdated(ArrayList<License> licenses) {
+    public void licensesDataUpdated(ArrayList<License> licenses) {
 
         getActivity().runOnUiThread(() -> {
 
@@ -70,10 +65,10 @@ public class LicensesFragment extends Fragment implements AdminActivityListener,
 
             licensesAdapter.updateAllData(licenses);
 
-
         });
 
-    }//onLicensesDataUpdated
+    }//licensesDataUpdated
+
 
 
     @Override
