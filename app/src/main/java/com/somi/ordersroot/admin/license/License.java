@@ -7,6 +7,7 @@ public class License {
     }
 
     private String licenseId;
+    private String licenseName;
     private String deviceId;
 
     public String getLicenseId() {
@@ -14,6 +15,13 @@ public class License {
     }
     public void setLicenseId(String licenseId) {
         this.licenseId = licenseId;
+    }
+
+    public String getLicenseName() {
+        return licenseName;
+    }
+    public void setLicenseName(String licenseName) {
+        this.licenseName = licenseName;
     }
 
     public String getDeviceId() {

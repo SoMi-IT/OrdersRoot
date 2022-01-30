@@ -12,14 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40sp"
+        android:layout_marginTop="20sp"
         android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_fl_auth_image"
             android:layout_width="wrap_content"
             android:layout_height="120sp"
-            android:layout_marginStart="5sp"
             android:src="@drawable/app_logo"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"

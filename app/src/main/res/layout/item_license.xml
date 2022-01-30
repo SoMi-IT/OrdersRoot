@@ -80,6 +80,22 @@
                 android:layout_height="wrap_content"
                 android:textColor="?colorOnSecondaryContainer"
                 android:textSize="12sp"
+                android:text="License name:"/>
+
+            <TextView
+                android:id="@+id/tv_item_license_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?colorOnSecondary"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="?colorOnSecondaryContainer"
+                android:textSize="12sp"
                 android:text="License id:"/>
 
             <TextView
@@ -87,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?colorOnSecondary"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -103,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?colorOnSecondary"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"/>
 
 

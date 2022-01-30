@@ -18,6 +18,7 @@ import com.somi.ordersroot.FirestoreDataManager.FirestoreAdminManagerListener;
 import com.somi.ordersroot.R;
 import com.somi.ordersroot.admin.license.License;
 import com.somi.ordersroot.admin.license.LicenseEditDialogListener;
+import com.somi.ordersroot.admin.license.LicensesFragmentListener;
 import com.somi.ordersroot.admin.user.User;
 import com.somi.ordersroot.admin.license.LicensesFragment;
 import com.somi.ordersroot.admin.user.UsersFragment;
@@ -25,7 +26,7 @@ import com.somi.ordersroot.auth.AuthActivity;
 
 import java.util.ArrayList;
 
-public class AdminActivity extends AppCompatActivity implements PanelFragmentListener, FirestoreAdminManagerListener {
+public class AdminActivity extends AppCompatActivity implements PanelFragmentListener, FirestoreAdminManagerListener, LicensesFragmentListener {
 
 
 
@@ -141,6 +142,7 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
     public void showLicensesFragment() {
 
         licensesFragment = new LicensesFragment();
+        licensesFragment.setListener(this);
         FragmentManager mainFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mainFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_admin_main, licensesFragment);
@@ -180,6 +182,7 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
     }
 
 
+    //-------------------FireStoreAdminListener
     public void onAdminDataRetrieved(Admin admin) {
         if(listenerForPanel != null)listenerForPanel.onAdminDataUpdated(admin);
 
@@ -202,13 +205,11 @@ public class AdminActivity extends AppCompatActivity implements PanelFragmentLis
 
     }//onDataRetrieveError
 
+    //-------------------LicenseFragmentListener
 
 
-
-
-
-
-
-
-
+    @Override
+    public void onLicenseDataChanged(License license) {
+        firestoreAdminManager.updateLicenseData(license);
+    }
 }//AdminActivity

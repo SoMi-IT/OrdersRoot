@@ -25,15 +25,17 @@ public class LicenseEditDialog extends Dialog implements View.OnClickListener {
 
     private LicenseEditDialogListener listener;
 
+    private License license;
+
     private TextView tv_licenseId;
-    private EditText et_deviceId;
+    private EditText et_deviceId, et_licenseName;
     private ImageButton ib_scan;
     private Button b_confirm, b_dismiss;
 
-    public LicenseEditDialog(Activity _context, License license) {
+    public LicenseEditDialog(Activity _context, License _license) {
 
         super(_context);
-
+        license = _license;
 
         ColorDrawable back = new ColorDrawable(Color.TRANSPARENT);
         InsetDrawable inset = new InsetDrawable(back, 20);
@@ -48,6 +50,7 @@ public class LicenseEditDialog extends Dialog implements View.OnClickListener {
 
         tv_licenseId = findViewById(R.id.tv_dialog_license_edit_id);
         et_deviceId = findViewById(R.id.et_dialog_license_edit_device_id);
+        et_licenseName = findViewById(R.id.et_dialog_license_edit_license_name);
 
         ib_scan = findViewById(R.id.ib_dialog_license_edit_qr_scan);
         ib_scan.setOnClickListener(this);
@@ -61,6 +64,8 @@ public class LicenseEditDialog extends Dialog implements View.OnClickListener {
             if (license.getLicenseId() != null) tv_licenseId.setText(license.getLicenseId());
 
             if (license.getDeviceId() != null) et_deviceId.setText(license.getDeviceId());
+
+            if (license.getDeviceId() != null) et_licenseName.setText(license.getLicenseName());
 
         }
 
@@ -83,6 +88,12 @@ public class LicenseEditDialog extends Dialog implements View.OnClickListener {
 
         if(view == b_dismiss)dismiss();
         else if(view == b_confirm) {
+            if(et_deviceId != null) license.setDeviceId(et_deviceId.getText().toString());
+
+            if(et_licenseName != null) license.setLicenseName(et_licenseName.getText().toString());
+
+            if(listener != null)listener.onLicenseEdited(license);
+            dismiss();
 
         }else if(view == ib_scan) {
             if(listener != null)listener.onQrScanRequest();

@@ -8,5 +8,6 @@ import java.util.ArrayList;
 public interface LicenseEditDialogListener {
 
     void onQrScanRequest();
+    void onLicenseEdited(License license);
 
 }//LicenseEditDialogListener

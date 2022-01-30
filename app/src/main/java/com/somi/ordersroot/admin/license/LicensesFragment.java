@@ -24,12 +24,13 @@ import com.somi.ordersroot.admin.user.User;
 import java.util.ArrayList;
 
 
-public class LicensesFragment extends Fragment implements View.OnClickListener, AdminActivityListener, LicensesAdapterListener, LicenseEditDialogListener {
+public class LicensesFragment extends Fragment implements AdminActivityListener, LicensesAdapterListener, LicenseEditDialogListener {
 
 
     private RecyclerView rv_licenses;
     private LicensesAdapter licensesAdapter;
 
+    private LicensesFragmentListener listener;
     private FirestoreAdminManager firestoreAdminManager;
     private LicenseEditDialog licenseEditDialog;
 
@@ -53,14 +54,13 @@ public class LicensesFragment extends Fragment implements View.OnClickListener, 
 
     }//onCreateView
 
-    public void onClick(View view) {
 
-    }//onClick
-
+    public void setListener(LicensesFragmentListener licensesFragmentListener) {
+        listener = licensesFragmentListener;
+    }//setListener
 
     public void onAdminDataUpdated(Admin admin) {}//onAdminDataUpdated
     public void onUsersDataUpdated(ArrayList<User> users) {}//onUsersDataUpdated
-
 
     public void onLicensesDataUpdated(ArrayList<License> licenses) {
 
@@ -68,7 +68,7 @@ public class LicensesFragment extends Fragment implements View.OnClickListener, 
 
             if(licensesAdapter == null) return;
 
-            licensesAdapter.updateData(licenses);
+            licensesAdapter.updateAllData(licenses);
 
 
         });
@@ -78,7 +78,6 @@ public class LicensesFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onItemClicked(License license) {
-
         licenseEditDialog = new LicenseEditDialog(getActivity(), license);
         licenseEditDialog.setLicenseEditDialogListener(this);
         licenseEditDialog.show();
@@ -88,9 +87,18 @@ public class LicensesFragment extends Fragment implements View.OnClickListener, 
     public void onQrScanRequest() {
         ScanOptions options = new ScanOptions();
         options.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
+        options.setBeepEnabled(false);
         barcodeLauncher.launch(options);
 
     }//onQrScanRequest
+
+
+    public void onLicenseEdited(License license) {
+        if(listener != null)listener.onLicenseDataChanged(license);
+        if(licensesAdapter != null)licensesAdapter.refreshView(license.getLicenseId());
+
+    }//onLicenseEdited
+
 
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
             result -> {

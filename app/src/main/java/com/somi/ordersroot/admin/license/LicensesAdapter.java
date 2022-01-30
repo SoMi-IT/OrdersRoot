@@ -33,7 +33,7 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
     }//setListener
 
 
-    public void updateData(ArrayList<License> _licenses) {
+    public void updateAllData(ArrayList<License> _licenses) {
 
         newTempLicenses = _licenses;
 
@@ -83,12 +83,8 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
             License tempLicense = findDataInNewData(licenses.get(i));
 
             if(tempLicense != null){
+                if(!licenses.get(i).getDeviceId().equals(tempLicense.getDeviceId()) || !licenses.get(i).getLicenseName().equals(tempLicense.getLicenseName())) {
 
-                if(licenses.get(i) == null) Log.d("XXX", "1");
-                if(licenses.get(i).getDeviceId() == null) Log.d("XXX", "2");
-                if(tempLicense.getDeviceId() == null) Log.d("XXX", "4");
-
-                if(!licenses.get(i).getDeviceId().equals(tempLicense.getDeviceId())) {
                     licenses.set(i, tempLicense);
                     notifyItemChanged(i);
                 }
@@ -117,6 +113,24 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
         }
 
         return null;
+
+    }//getDataById
+
+
+    public void refreshView(String objectId) {
+
+        if (licenses == null) return;
+
+        for (int i = 0; i < licenses.size(); i++) {
+
+            if (licenses.get(i).getLicenseId().equals(objectId)) {
+
+                notifyItemChanged(i);
+                break;
+
+            }
+
+        }
 
     }//getDataById
 
@@ -158,6 +172,7 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
 
         holder.tv_position.setText(position+"");
         holder.tv_id.setText("*****");
+        holder.tv_name.setText(license.getLicenseName());
         holder.tv_deviceID.setText(license.getDeviceId());
 
         holder.iv_show.setOnClickListener(v -> {
@@ -177,6 +192,7 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
 
         TextView tv_position;
         TextView tv_id;
+        TextView tv_name;
         TextView tv_deviceID;
         ImageView iv_show, iv_edit;
 
@@ -185,6 +201,7 @@ public class LicensesAdapter extends RecyclerView.Adapter<LicensesAdapter.Licens
             super(itemView);
             tv_position = itemView.findViewById(R.id.tv_item_license_position);
             tv_id = itemView.findViewById(R.id.tv_item_license_id);
+            tv_name = itemView.findViewById(R.id.tv_item_license_name);
             tv_deviceID = itemView.findViewById(R.id.tv_item_license_device_id);
             iv_show = itemView.findViewById(R.id.iv_item_license_show);
             iv_edit = itemView.findViewById(R.id.iv_item_license_edit);
