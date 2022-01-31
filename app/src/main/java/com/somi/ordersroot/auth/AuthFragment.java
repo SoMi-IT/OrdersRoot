@@ -48,7 +48,8 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
         b_confirm.setOnClickListener(this);
 
         ImageView iv_qr = rootView.findViewById(R.id.iv_auth_qr);
-        iv_qr.setImageBitmap(generateQrCode(getDeviceId(getActivity())));
+
+        iv_qr.setImageBitmap(generateQrCode(AuthActivity.getDeviceId(getActivity())));
 
         return rootView;
 
@@ -84,10 +85,10 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
             et_firstField.setError("type your email!");
             return;
 
-        }else if(hasEmail && hasPsw) {
+        }else if(hasEmail) {
             listener.onAuthStartRequested(emailString, pswString);
 
-        }else if(hasPin) {
+        }else {
             listener.onAuthStartRequested(pinString, null);
 
         }
@@ -138,23 +139,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
     }//generateQrCode
 
 
-    private static String getDeviceId(Context context) {
 
-        String deviceId;
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-
-        else {
-            final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-
-            if (mTelephony.getMeid() != null) deviceId = mTelephony.getMeid();
-            else deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-
-        }
-
-        return deviceId;
-
-    }//getDeviceId
 
 
     public void setListener(AuthFragmentListener _listener){

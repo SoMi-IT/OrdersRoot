@@ -197,21 +197,15 @@ public class FirestoreAdminManager {
 
         DocumentReference documentReference  = firebaseFirestore.collection("licenses").document(license.getLicenseId());
 
-        documentReference.addSnapshotListener((value, error) -> {
+        Map<String, Object> fflicense = new HashMap<>();
+        fflicense.put("licenseName", license.getLicenseName());
+        fflicense.put("deviceId", license.getDeviceId());
 
 
-            Map<String, Object> fflicense = new HashMap<>();
-            fflicense.put("licenseName", license.getLicenseName());
-            fflicense.put("deviceId", license.getDeviceId());
-
-
-            documentReference.update(fflicense)
-                    .addOnFailureListener(e -> {
-                        if(listener != null)listener.onDataRetrieveError("Error: " + e.getMessage());
-                    });
-
-
-        });
+        documentReference.update(fflicense)
+                .addOnFailureListener(e -> {
+                    if(listener != null)listener.onDataRetrieveError("Error: " + e.getMessage());
+                });
 
 
 
