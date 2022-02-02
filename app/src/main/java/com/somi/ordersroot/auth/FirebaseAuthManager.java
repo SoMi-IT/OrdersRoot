@@ -68,11 +68,8 @@ public class FirebaseAuthManager {
 
             for (int i = 0; i < documents.size(); i++) {
 
-                Log.d("XXX", "LICENZA: " + documents.get(i).getId() + "Admin: " + documents.get(i).getString("adminId"));
-
                 if (documents.get(i).getString("deviceId") != null && documents.get(i).getString("deviceId").equals(deviceID)) {
 
-                    Log.d("XXX", "Trovato: " + documents.get(i).getId());
 
                     if(documents.get(i).getString("adminId") != null)findUserByAdmin(documents.get(i).getString("adminId"), pinCode);
                     else listener.onAuthError("This device is not associated");
@@ -80,8 +77,6 @@ public class FirebaseAuthManager {
 
                 }
             }
-
-            Log.d("XXX", "-----------");
 
             listener.onAuthError("Authentication failed : No user found");
 
@@ -102,18 +97,13 @@ public class FirebaseAuthManager {
 
             for (int j = 0; j < documents2.size(); j++) {
 
-                Log.d("XXX", "USER: " + documents2.get(j).getId() + "Admin: " + documents2.get(j).getString("adminId") + "  -> PinCode:" + documents2.get(j).getString("pinCode"));
-
                 if (documents2.get(j).getString("adminId") != null && adminId.equals(documents2.get(j).getString("adminId"))) {
 
-                    Log.d("XXX", "^ Questa licenza è del nostro admin");
-
                     if(documents2.get(j).getString("pinCode") != null && pinCode.equals(documents2.get(j).getString("pinCode"))) {
-                        Log.d("XXX", "Trovato: " + documents2.get(j).getId());
 
                         listener.onUserLogged();
                         break;
-                        //f6badbeee9ebc79d
+
                     }
 
 
@@ -121,7 +111,6 @@ public class FirebaseAuthManager {
                 }
             }
 
-            Log.d("XXX", "--------------------------------------------");
 
         });
     }
